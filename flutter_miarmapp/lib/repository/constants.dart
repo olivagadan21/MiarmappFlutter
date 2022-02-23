@@ -1,0 +1,3 @@
+class Constant {
+  static String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQ1NjE2NzEzLCJ1c2VybmFtZSI6IkZlcm5hbmRvIiwicm9sIjoiUFJJVkFETyJ9.R9YhlTnGk98sszgYaKTiXQK9THpjqmS6rFws8twpkrw";
+}
