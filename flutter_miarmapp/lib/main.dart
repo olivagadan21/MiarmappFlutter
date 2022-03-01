@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_miarmapp/ui/login_screen.dart';
-import 'package:flutter_miarmapp/ui/menu_screen.dart';
-import 'package:flutter_miarmapp/ui/profile_screen.dart';
-import 'package:flutter_miarmapp/ui/register_screen.dart';
+
+import 'ui/screens/login_screen.dart';
+import 'ui/screens/menu_screen.dart';
+import 'ui/screens/profile_screen.dart';
+import 'ui/screens/register_screen.dart';
+
 
 
 void main() {

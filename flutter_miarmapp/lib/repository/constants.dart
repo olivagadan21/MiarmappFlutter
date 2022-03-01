@@ -1,3 +1,7 @@
 class Constant {
-  static String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQ1NjE2NzEzLCJ1c2VybmFtZSI6IkZlcm5hbmRvIiwicm9sIjoiUFJJVkFETyJ9.R9YhlTnGk98sszgYaKTiXQK9THpjqmS6rFws8twpkrw";
+  static String apiKey = "d61431a2fb64b6e56c6f086952e63ab6";
+  static String popular = "popular";
+  static String nowPlaying = "public";
+  static String topRated = "top_rated";
+  static String upcoming = "upcoming";
 }

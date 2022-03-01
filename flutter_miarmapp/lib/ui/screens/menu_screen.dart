@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_miarmapp/ui/profile_screen.dart';
-import 'package:flutter_miarmapp/ui/search_screen.dart';
 
 import 'home_screen.dart';
+import 'profile_screen.dart';
+import 'search_screen.dart';
+
+
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);

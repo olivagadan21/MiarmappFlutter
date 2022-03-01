@@ -1,5 +1,5 @@
-import 'package:flutter_miarmapp/models/publicaciones/publicaciones_response.dart';
+import 'package:flutter_miarmapp/models/publicacion_model.dart';
 
 abstract class PublicacionRepository {
-  Future<List<Publicacion>> fetchMovies(String type);
+  Future<List<PublicacionData>> fetchPublicaciones(String type);
 }
