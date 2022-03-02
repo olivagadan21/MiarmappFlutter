@@ -80,45 +80,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 32,
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          width: 230,
-                          decoration: BoxDecoration(
-                            color: textWhiteGrey,
-                            borderRadius: BorderRadius.circular(14.0),
-                          ),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: 'Nick',
-                              hintStyle: heading6.copyWith(color: textGrey),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
+                    Container(
+                      width: 230,
+                      decoration: BoxDecoration(
+                        color: textWhiteGrey,
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Nick',
+                          hintStyle: heading6.copyWith(color: textGrey),
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide.none,
                           ),
                         ),
-                        const SizedBox(
-                          width: 18,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 18,
+                    ),
+                    Container(
+                      width: 200,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: textWhiteGrey,
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      child: TextButton(
+                        onPressed: () { _selectDate(context); }, 
+                        child: Row(
+                          children: [
+                            const Icon(Icons.calendar_today_outlined),
+                            Text("${selectedDate.year}-${selectedDate.month}-${selectedDate.day}"),
+                          ],
                         ),
-                        Container(
-                          width: 110,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: textWhiteGrey,
-                            borderRadius: BorderRadius.circular(14.0),
-                          ),
-                          child: TextButton(
-                            onPressed: () { _selectDate(context); }, 
-                            child: Row(
-                              children: [
-                                const Icon(Icons.calendar_today_outlined),
-                                Text("${selectedDate.year}-${selectedDate.month}-${selectedDate.day}"),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                     const SizedBox(
                       height: 32,
@@ -141,49 +137,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 32,
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          width: 165,
-                          decoration: BoxDecoration(
-                            color: textWhiteGrey,
-                            borderRadius: BorderRadius.circular(14.0),
-                          ),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: 'Password',
-                              suffixIcon: const Icon(Icons.remove_red_eye_rounded,
-                                  color: Colors.black54),
-                              hintStyle: heading6.copyWith(color: textGrey),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
+                    Container(
+                      width: 165,
+                      decoration: BoxDecoration(
+                        color: textWhiteGrey,
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Password',
+                          suffixIcon: const Icon(Icons.remove_red_eye_rounded,
+                              color: Colors.black54),
+                          hintStyle: heading6.copyWith(color: textGrey),
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide.none,
                           ),
                         ),
-                        const SizedBox(
-                          width: 18,
-                        ),
-                        Container(
-                          width: 165,
-                          decoration: BoxDecoration(
-                            color: textWhiteGrey,
-                            borderRadius: BorderRadius.circular(14.0),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 18,
+                    ),
+                    Container(
+                      width: 165,
+                      decoration: BoxDecoration(
+                        color: textWhiteGrey,
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Confirm Password',
+                          hintStyle: heading6.copyWith(color: textGrey),
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide.none,
                           ),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: 'Confirm Password',
-                              hintStyle: heading6.copyWith(color: textGrey),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                          ),
                         ),
-                        
-                        
-                      ],
-                      
+                      ),
                     ),
                     const SizedBox(
                           height: 18,

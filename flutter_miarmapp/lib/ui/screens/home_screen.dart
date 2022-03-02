@@ -86,38 +86,6 @@ Widget _createPopularView(BuildContext context, List<PublicacionData> movies) {
 
 }
 
-/*Widget _createPopularViewItem(BuildContext context, PublicacionData movie) {
-    final width = MediaQuery.of(context).size.width / 2.6;
-    return Container(
-      width: width,
-      height: double.infinity,
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: Card(
-        elevation: 10.0,
-        borderOnForeground: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: SizedBox(
-          width: width,
-          height: double.infinity,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: CachedNetworkImage(
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              imageUrl: movie.file.toString().replaceFirst('localhost', '10.0.2.2'),
-              width: width,
-              height: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
-    );
-  }*/
-
   Widget _post (BuildContext context, PublicacionData data){
     return Container(
     decoration: BoxDecoration(
@@ -194,61 +162,3 @@ Widget _createPopularView(BuildContext context, List<PublicacionData> movies) {
     ),
   );
   }
-
-
-/*Widget post(BuildContext context, PublicacionData data) {
-  return Container(
-    decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(color: Colors.grey.withOpacity(.3)))),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        ListTile(
-          leading:  CircleAvatar(
-            backgroundImage: NetworkImage(data.file.toString().replaceFirst('localhost', '10.0.2.2')),
-          ),
-          title: Text(
-            data.titulo.toString(),
-            style: TextStyle(
-                color: Colors.black.withOpacity(.8),
-                fontWeight: FontWeight.w400,
-                fontSize: 21),
-          ),
-          trailing: const Icon(Icons.more_vert),
-        ),
-        Image.network(
-          data.file.toString().replaceFirst('localhost', '10.0.2.2'),
-          fit: BoxFit.cover,
-          width: double.infinity,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                children: const <Widget>[
-                  Icon(
-                    Icons.favorite,
-                    size: 31,
-                    color: Colors.red,
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Icon(Icons.comment_sharp, size: 31),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Icon(Icons.send, size: 31),
-                ],
-              ),
-              const Icon(Icons.bookmark_border, size: 31)
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}*/
