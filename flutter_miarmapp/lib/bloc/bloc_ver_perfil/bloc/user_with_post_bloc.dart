@@ -7,13 +7,14 @@ part 'user_with_post_event.dart';
 part 'user_with_post_state.dart';
 
 class UserWithPostBloc extends Bloc<UserWithPostEvent, UserWithPostState> {
-    final UserPostRepository public;
+  final UserPostRepository public;
 
   UserWithPostBloc(this.public) : super(UserWithPostInitial()) {
     on<FetchUserWithType>(_publicacionesFetched);
-}
+  }
 
-void _publicacionesFetched(FetchUserWithType event, Emitter<UserWithPostState> emit) async {
+  void _publicacionesFetched(
+      FetchUserWithType event, Emitter<UserWithPostState> emit) async {
     try {
       final movies = await public.fetchUsers(event.type);
       emit(UsersFetched(movies, event.type));

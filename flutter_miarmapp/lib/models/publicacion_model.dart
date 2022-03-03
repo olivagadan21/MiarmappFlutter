@@ -15,8 +15,8 @@ class PublicacionData {
   late final String fechaPublicacion;
   late final String estadoPublicacion;
   late final User user;
-  
-  PublicacionData.fromJson(Map<String, dynamic> json){
+
+  PublicacionData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     titulo = json['titulo'];
     texto = json['texto'];
@@ -58,8 +58,8 @@ class User {
   late final String email;
   late final String avatar;
   late final String userRoles;
-  
-  User.fromJson(Map<String, dynamic> json){
+
+  User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nombre = json['nombre'];
     apellidos = json['apellidos'];

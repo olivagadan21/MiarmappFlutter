@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
-
 import 'like_animation.dart';
 
 class PostWidget extends StatefulWidget {
-  // final PostResponse post;
-  // const PostWidget({Key? key, required this.post}) : super(key: key);
-
   const PostWidget({Key? key}) : super(key: key);
 
   @override

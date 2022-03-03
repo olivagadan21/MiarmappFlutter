@@ -31,33 +31,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) {return UserWithPostBloc(userRepository)..add(FetchUserWithType(Constant.nowPlaying));},
-      child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            title: const Text(
-              "Luis Miguel López",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.black),
-            ),
-            actions: const [
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: IconButton(
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.menu,
-                      size: 30,
-                      color: Colors.black,
-                    ),
-                  ))
-            ],
-          ),
-          body: _createPublics(context)),
+      create: (context) {
+        return UserWithPostBloc(userRepository)
+          ..add(FetchUserWithType(Constant.nowPlaying));
+      },
+      child: Scaffold(body: _createPublics(context)),
     );
   }
 }
@@ -91,6 +69,30 @@ Widget _profile(BuildContext context, UserData user) {
       children: [
         Column(
           children: [
+            AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.white,
+              elevation: 0,
+              title: Text(
+                user.nick,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black),
+              ),
+              actions: const [
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: IconButton(
+                      onPressed: null,
+                      icon: Icon(
+                        Icons.menu,
+                        size: 30,
+                        color: Colors.black,
+                      ),
+                    ))
+              ],
+            ),
             Row(
               children: [
                 Container(
@@ -130,12 +132,7 @@ Widget _profile(BuildContext context, UserData user) {
                         Column(
                           children: [
                             TextButton(
-                              onPressed: () {
-                                /*Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const FollowPage()));*/
-                              },
+                              onPressed: () {},
                               child: Text(
                                 user.followers.length.toString(),
                                 style: const TextStyle(
@@ -155,14 +152,9 @@ Widget _profile(BuildContext context, UserData user) {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextButton(
-                                onPressed: () {
-                                  /*Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const FollowPage()));*/
-                                },
-                                child: const Text("832",
-                                    style: TextStyle(
+                                onPressed: () {},
+                                child: Text(user.followers.length.toString(),
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black))),
                             const Text("following"),
@@ -207,76 +199,45 @@ Widget _profile(BuildContext context, UserData user) {
                       "Edit Profile",
                       style: TextStyle(color: Colors.black),
                     )))
-
-            /* Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 120.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.white),
-                        onPressed: () {},
-                        child: const Text(
-                          "Edit Profile",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),*/
           ],
         ),
         const Divider(
           height: 10,
         ),
-        
-          
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.table_chart_outlined)),
-                IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.person_search)),
-              ],
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            
-            /*Image(  image: NetworkImage(user.publicaciones.elementAt(0).file.toString().replaceFirst('localhost', '10.0.2.2')),
-                        
-                        ),*/
-            Flexible(
-              child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  itemCount: user.publicaciones.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      color: Colors.white,
-                      child: Image(
-                            image: NetworkImage(user.publicaciones.elementAt(index).file.toString().replaceFirst('localhost', '10.0.2.2')),
-                            fit: BoxFit.cover,
-                          ));
-                    
-                  }),
-            ),
-            /*Container(
-                width: 120,
-                height: 150,
-                child: Image(
-                  image: AssetImage('assets/images/luismi.png'),
-                  fit: BoxFit.contain,
-                )),*/
-            const SizedBox(
-              width: 20,
-            ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+                onPressed: () {}, icon: const Icon(Icons.table_chart_outlined)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.person_search)),
           ],
-        
-      
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Flexible(
+          child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
+              itemCount: user.publicaciones.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                    color: Colors.white,
+                    child: Image(
+                      image: NetworkImage(user.publicaciones
+                          .elementAt(index)
+                          .file
+                          .toString()
+                          .replaceFirst('localhost', '10.0.2.2')),
+                      fit: BoxFit.cover,
+                    ));
+              }),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+      ],
     ),
-    
   );
 }

@@ -7,7 +7,7 @@ abstract class UserWithPostEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchUserWithType extends  UserWithPostEvent{
+class FetchUserWithType extends UserWithPostEvent {
   final String type;
 
   const FetchUserWithType(this.type);

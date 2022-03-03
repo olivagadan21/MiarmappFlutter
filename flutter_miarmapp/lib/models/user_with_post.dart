@@ -23,8 +23,8 @@ class UserData {
   late final List<dynamic> followers;
   late final List<Publicaciones> publicaciones;
   late final int peticiones;
-  
-  UserData.fromJson(Map<String, dynamic> json){
+
+  UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nombre = json['nombre'];
     apellidos = json['apellidos'];
@@ -34,7 +34,9 @@ class UserData {
     avatar = json['avatar'];
     userRoles = json['userRoles'];
     followers = List.castFrom<dynamic, dynamic>(json['followers']);
-    publicaciones = List.from(json['publicaciones']).map((e)=>Publicaciones.fromJson(e)).toList();
+    publicaciones = List.from(json['publicaciones'])
+        .map((e) => Publicaciones.fromJson(e))
+        .toList();
     peticiones = json['peticiones'];
   }
 
@@ -49,7 +51,7 @@ class UserData {
     _data['avatar'] = avatar;
     _data['userRoles'] = userRoles;
     _data['followers'] = followers;
-    _data['publicaciones'] = publicaciones.map((e)=>e.toJson()).toList();
+    _data['publicaciones'] = publicaciones.map((e) => e.toJson()).toList();
     _data['peticiones'] = peticiones;
     return _data;
   }
@@ -70,8 +72,8 @@ class Publicaciones {
   late final String file;
   late final String fechaPublicacion;
   late final String estadoPublicacion;
-  
-  Publicaciones.fromJson(Map<String, dynamic> json){
+
+  Publicaciones.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     titulo = json['titulo'];
     texto = json['texto'];

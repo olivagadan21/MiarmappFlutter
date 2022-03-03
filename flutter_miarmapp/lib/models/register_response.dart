@@ -17,8 +17,8 @@ class RegisterResponse {
   late final String email;
   late final String avatar;
   late final String userRoles;
-  
-  RegisterResponse.fromJson(Map<String, dynamic> json){
+
+  RegisterResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nombre = json['nombre'];
     apellidos = json['apellidos'];

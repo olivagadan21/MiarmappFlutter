@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'home_screen.dart';
 import 'profile_screen.dart';
 import 'search_screen.dart';
-
-
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -27,8 +24,6 @@ class _MenuScreenState extends State<MenuScreen> {
     return Scaffold(
         body: pages[_currentIndex], bottomNavigationBar: _buildBottomBar());
   }
-
-
 
   Widget _buildBottomBar() {
     return Container(
@@ -74,13 +69,19 @@ class _MenuScreenState extends State<MenuScreen> {
               },
               child: Container(
                 padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), border: Border.all(color: _currentIndex == 2? Colors.black: Colors.transparent, width: 1)),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(
+                        color: _currentIndex == 2
+                            ? Colors.black
+                            : Colors.transparent,
+                        width: 1)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: Image.asset(
-                      'assets/images/foto.png',
-                      width: 30,
-                    ),
+                    'assets/images/foto.png',
+                    width: 30,
+                  ),
                 ),
               ),
             )

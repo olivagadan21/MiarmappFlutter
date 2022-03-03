@@ -7,11 +7,18 @@ abstract class BlocPublicacionesEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchPublicacionWithType extends  BlocPublicacionesEvent{
+class FetchPublicacionWithType extends BlocPublicacionesEvent {
   final String type;
 
   const FetchPublicacionWithType(this.type);
 
   @override
   List<Object> get props => [type];
+}
+
+class DoPublicacionEvent extends BlocPublicacionesEvent {
+  final PublicacionDto registerDto;
+  final String imagePath;
+
+  const DoPublicacionEvent(this.registerDto, this.imagePath);
 }

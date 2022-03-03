@@ -16,7 +16,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<LoginResponse> login(LoginDto loginDto) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, String> headers = {
-      'Content-Type': 'application/json', 
+      'Content-Type': 'application/json',
     };
 
     final response = await _client.post(
@@ -31,18 +31,33 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<RegisterResponse> register(RegisterDto registerDto, String imagePath) async {
-    var request = http.MultipartRequest(
-        'POST', Uri.parse('http://10.0.2.2:8080/auth/register/user'))
-      ..fields['user'] = jsonEncode(registerDto.toJson())..headers
-      ..files.add(await http.MultipartFile.fromPath('file', imagePath));
-    final response = await request.send();
+  Future<RegisterResponse> register(
+      RegisterDto registerDto, String imagePath) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var uri = Uri.parse('http://10.0.2.2:8080/auth/register');
+    var request = http.MultipartRequest('POST', uri);
+    request.fields['nombre'] = prefs.getString('nombre').toString();
+    request.fields['apellidos'] = prefs.getString('apellidos').toString();
+    request.fields['nick'] = prefs.getString('nick').toString();
+    request.fields['email'] = prefs.getString('email').toString();
+    request.fields['fechaNacimiento'] =
+        prefs.getString('fechaNacimiento').toString();
+    request.fields['rol'] = true.toString();
+    request.fields['password'] = prefs.getString('password').toString();
+    request.fields['password2'] = prefs.getString('password2').toString();
+    request.files.add(await http.MultipartFile.fromPath(
+        'file', prefs.getString('file').toString()));
+
+    var response = await request.send();
+    if (response.statusCode == 201) print('Uploaded!');
 
     if (response.statusCode == 201) {
       return RegisterResponse.fromJson(
           jsonDecode(await response.stream.bytesToString()));
     } else {
-      throw Exception('Failed to register');
+      print(response.statusCode);
+      throw Exception(prefs.getString('nombre'));
     }
   }
 }

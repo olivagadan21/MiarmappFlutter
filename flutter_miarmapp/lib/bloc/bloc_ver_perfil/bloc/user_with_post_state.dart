@@ -2,7 +2,7 @@ part of 'user_with_post_bloc.dart';
 
 abstract class UserWithPostState extends Equatable {
   const UserWithPostState();
-  
+
   @override
   List<Object> get props => [];
 }

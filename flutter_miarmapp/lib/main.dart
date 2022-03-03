@@ -5,8 +5,6 @@ import 'ui/screens/menu_screen.dart';
 import 'ui/screens/profile_screen.dart';
 import 'ui/screens/register_screen.dart';
 
-
-
 void main() {
   runApp(const MyApp());
 }
@@ -22,13 +20,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/login',
-  routes: {
-    '/menu': (context) => const MenuScreen(),
-    '/login': (context) => const LoginScreen(),
-    '/register': (context) => const RegisterScreen(),
-    '/profile': (context) => const ProfileScreen()
-  },
+      initialRoute: '/menu',
+      routes: {
+        '/menu': (context) => const MenuScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+        '/profile': (context) => const ProfileScreen()
+      },
     );
   }
 }

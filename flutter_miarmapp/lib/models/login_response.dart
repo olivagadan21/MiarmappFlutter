@@ -15,8 +15,8 @@ class LoginResponse {
   late final String avatar;
   late final String role;
   late final String token;
-  
-  LoginResponse.fromJson(Map<String, dynamic> json){
+
+  LoginResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nick = json['nick'];
     email = json['email'];

@@ -2,21 +2,41 @@ part of 'bloc_publicaciones_bloc.dart';
 
 abstract class BlocPublicacionesState extends Equatable {
   const BlocPublicacionesState();
-  
+
   @override
   List<Object> get props => [];
 }
 
 class BlocPublicacionesInitial extends BlocPublicacionesState {}
 
-class PublicacionesFetched extends BlocPublicacionesState {
-  final List<PublicacionData> movies;
-  final String type;
+class PublicacionesLoading extends BlocPublicacionesState {}
 
-  const PublicacionesFetched(this.movies, this.type);
+class PublicacionesSuccessState extends BlocPublicacionesState {
+  final PublicacionData loginResponse;
+
+  const PublicacionesSuccessState(this.loginResponse);
 
   @override
-  List<Object> get props => [movies];
+  List<Object> get props => [loginResponse];
+}
+
+class PublicacionErrorState extends BlocPublicacionesState {
+  final String message;
+
+  const PublicacionErrorState(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class PublicacionesFetched extends BlocPublicacionesState {
+  final List<PublicacionData> publicaciones;
+  final String type;
+
+  const PublicacionesFetched(this.publicaciones, this.type);
+
+  @override
+  List<Object> get props => [publicaciones];
 }
 
 class PublicacionFetchError extends BlocPublicacionesState {

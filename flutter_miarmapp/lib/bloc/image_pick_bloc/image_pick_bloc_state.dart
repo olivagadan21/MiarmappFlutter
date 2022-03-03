@@ -2,7 +2,7 @@ part of 'image_pick_bloc_bloc.dart';
 
 abstract class ImagePickBlocState extends Equatable {
   const ImagePickBlocState();
-  
+
   @override
   List<Object> get props => [];
 }
