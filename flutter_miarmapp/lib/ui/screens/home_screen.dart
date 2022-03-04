@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocProvider(
       create: (context) {
         return BlocPublicacionesBloc(publicacionRepository)
-          ..add(FetchPublicacionWithType(Constant.nowPlaying));
+          ..add(FetchPublicacionWithType(Constant.posts));
       },
       child: Scaffold(
         appBar: const HomeAppBar(),
@@ -57,7 +57,7 @@ Widget _createPublics(BuildContext context) {
           retry: () {
             context
                 .watch<BlocPublicacionesBloc>()
-                .add(FetchPublicacionWithType(Constant.nowPlaying));
+                .add(FetchPublicacionWithType(Constant.posts));
           },
         );
       } else if (state is PublicacionesFetched) {

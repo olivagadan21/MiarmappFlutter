@@ -16,8 +16,8 @@ class UserWithPostBloc extends Bloc<UserWithPostEvent, UserWithPostState> {
   void _publicacionesFetched(
       FetchUserWithType event, Emitter<UserWithPostState> emit) async {
     try {
-      final movies = await public.fetchUsers(event.type);
-      emit(UsersFetched(movies, event.type));
+      final users = await public.fetchUsers();
+      emit(UsersFetched(users));
       return;
     } on Exception catch (e) {
       emit(UserFetchedError(e.toString()));

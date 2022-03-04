@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Login to your\naccount',
+                  'Iniciar sesión',
                   style: heading2.copyWith(color: textBlack),
                 ),
                 const SizedBox(
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextFormField(
                       validator: (String? value) {
                         return (value == null || !value.contains('@'))
-                            ? 'Do not use the @ char.'
+                            ? 'No tiene formato email'
                             : null;
                       },
                       onSaved: (String? value) {},
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
-                          hintText: 'Password',
+                          hintText: 'Contraseña',
                           hintStyle: heading6.copyWith(color: textGrey),
                           border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onSaved: (String? value) {},
                         validator: (value) {
                           return (value == null || value.isEmpty)
-                              ? 'Write a password'
+                              ? 'Escribe la contraseña'
                               : null;
                         }),
                   )
@@ -193,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         .add(DoLoginEvent(loginDto));
                   }
                 },
-                child: const Text('Login'),
+                child: const Text('Iniciar sesión'),
               ),
             ),
             const SizedBox(
@@ -205,23 +205,24 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 50,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Don't have an account? ",
-                  style: regular16pt.copyWith(color: textGrey),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: Text(
-                    'Register',
-                    style: regular16pt.copyWith(color: primaryBlue),
+            Center(
+              child: Column(
+                children: [
+                  Text(
+                    "¿Todavía no tienes una cuenta? ",
+                    style: regular16pt.copyWith(color: textGrey),
                   ),
-                ),
-              ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/register');
+                    },
+                    child: Text(
+                      'Registrarse',
+                      style: regular16pt.copyWith(color: primaryBlue),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

@@ -37,15 +37,14 @@ class AuthRepositoryImpl extends AuthRepository {
 
     var uri = Uri.parse('http://10.0.2.2:8080/auth/register');
     var request = http.MultipartRequest('POST', uri);
-    request.fields['nombre'] = prefs.getString('nombre').toString();
-    request.fields['apellidos'] = prefs.getString('apellidos').toString();
-    request.fields['nick'] = prefs.getString('nick').toString();
-    request.fields['email'] = prefs.getString('email').toString();
-    request.fields['fechaNacimiento'] =
-        prefs.getString('fechaNacimiento').toString();
-    request.fields['rol'] = true.toString();
-    request.fields['password'] = prefs.getString('password').toString();
-    request.fields['password2'] = prefs.getString('password2').toString();
+    request.fields['nombre'] = registerDto.nombre.toString();
+    request.fields['apellidos'] = registerDto.apellidos.toString();
+    request.fields['nick'] = registerDto.nick.toString();
+    request.fields['email'] = registerDto.email.toString();
+    request.fields['fechaNacimiento'] = registerDto.fechaNacimiento.toString();
+    request.fields['rol'] = registerDto.rol.toString();
+    request.fields['password'] = registerDto.password.toString();
+    request.fields['password2'] = registerDto.password2.toString();
     request.files.add(await http.MultipartFile.fromPath(
         'file', prefs.getString('file').toString()));
 
@@ -57,7 +56,7 @@ class AuthRepositoryImpl extends AuthRepository {
           jsonDecode(await response.stream.bytesToString()));
     } else {
       print(response.statusCode);
-      throw Exception(prefs.getString('nombre'));
+      throw Exception('Ojo cuidao que te has equivocado');
     }
   }
 }

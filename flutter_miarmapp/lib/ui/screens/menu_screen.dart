@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_miarmapp/bloc/bloc_ver_perfil/bloc/user_with_post_bloc.dart';
+import 'package:flutter_miarmapp/models/user_with_post.dart';
+import 'package:flutter_miarmapp/repository/user_with_post_repository/user_with_post_repository.dart';
+import 'package:flutter_miarmapp/repository/user_with_post_repository/user_with_post_repository_impl.dart';
+import 'package:flutter_miarmapp/ui/widgets/error_page.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
 import 'search_screen.dart';
@@ -11,6 +17,19 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+  late UserPostRepository userRepository;
+
+  @override
+  void initState() {
+    userRepository = UserPostRepositoryImpl();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   int _currentIndex = 0;
 
   List<Widget> pages = [
@@ -21,11 +40,38 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: pages[_currentIndex], bottomNavigationBar: _buildBottomBar());
+    return BlocProvider(
+      create: (context) {
+        return UserWithPostBloc(userRepository)..add(const FetchUserWithType());
+      },
+      child: Scaffold(
+          body: pages[_currentIndex],
+          bottomNavigationBar: _createPublics(context)),
+    );
   }
 
-  Widget _buildBottomBar() {
+  Widget _createPublics(BuildContext context) {
+    return BlocBuilder<UserWithPostBloc, UserWithPostState>(
+      builder: (context, state) {
+        if (state is UserWithPostInitial) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is UserFetchedError) {
+          return ErrorPage(
+            message: state.message,
+            retry: () {
+              context.watch<UserWithPostBloc>().add(const FetchUserWithType());
+            },
+          );
+        } else if (state is UsersFetched) {
+          return _buildBottomBar(context, state.users);
+        } else {
+          return const Text('Not support');
+        }
+      },
+    );
+  }
+
+  Widget _buildBottomBar(BuildContext context, UserData user) {
     return Container(
         decoration: const BoxDecoration(
             border: Border(
@@ -62,29 +108,28 @@ class _MenuScreenState extends State<MenuScreen> {
               },
             ),
             GestureDetector(
-              onTap: () {
-                setState(() {
-                  _currentIndex = 2;
-                });
-              },
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(
-                        color: _currentIndex == 2
-                            ? Colors.black
-                            : Colors.transparent,
-                        width: 1)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    'assets/images/foto.png',
-                    width: 30,
-                  ),
-                ),
-              ),
-            )
+                onTap: () {
+                  setState(() {
+                    _currentIndex = 2;
+                  });
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  width: 30.0,
+                  height: 30.0,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: _currentIndex == 2
+                              ? Colors.black
+                              : Colors.transparent,
+                          width: 1),
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(user.avatar
+                              .toString()
+                              .replaceFirst('localhost', '10.0.2.2')))),
+                ))
           ],
         ));
   }

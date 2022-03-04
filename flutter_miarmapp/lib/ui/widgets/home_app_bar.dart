@@ -17,10 +17,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         Expanded(
-            flex: 1,
+            flex: 2,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                const Text('Nueva Publicación'),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(

@@ -37,6 +37,7 @@ class _RegisterScreenState extends State<PublicacionScreen> {
   late Future<SharedPreferences> _prefs;
   final String uploadUrl = 'http://10.0.2.2:8080/auth/register';
   String path = "";
+  bool isPublic = true;
 
   @override
   void initState() {
@@ -80,7 +81,7 @@ class _RegisterScreenState extends State<PublicacionScreen> {
                   state is PublicacionErrorState;
             }, listener: (context, state) async {
               if (state is PublicacionesSuccessState) {
-                _loginSuccess(context, state.loginResponse);
+                _createSuccess(context, state.loginResponse);
               } else if (state is PublicacionErrorState) {
                 _showSnackbar(context, state.message);
               }
@@ -89,18 +90,19 @@ class _RegisterScreenState extends State<PublicacionScreen> {
                   state is PublicacionesLoading;
             }, builder: (ctx, state) {
               if (state is BlocPublicacionesInitial) {
-                return _register(ctx);
+                return _create(ctx);
               } else if (state is PublicacionesLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                return _register(ctx);
+                return _create(ctx);
               }
             })),
       ),
     );
   }
 
-  Future<void> _loginSuccess(BuildContext context, PublicacionData late) async {
+  Future<void> _createSuccess(
+      BuildContext context, PublicacionData late) async {
     _prefs.then((SharedPreferences prefs) {
       Navigator.push(
         context,
@@ -116,7 +118,7 @@ class _RegisterScreenState extends State<PublicacionScreen> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  _register(BuildContext context) {
+  _create(BuildContext context) {
     return SingleChildScrollView(
       child: SafeArea(
         child: Padding(

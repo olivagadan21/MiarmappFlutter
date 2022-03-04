@@ -14,14 +14,14 @@ class PublicacionRepositoryImpl extends PublicacionRepository {
   Future<List<PublicacionData>> fetchPublicaciones(String type) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final response = await _client.get(
-        Uri.parse('http://10.0.2.2:8080/post/${Constant.nowPlaying}'),
+        Uri.parse('${Constant.baseUrl}/post/${Constant.posts}'),
         headers: {'Authorization': 'Bearer ${prefs.getString('token')}'});
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
           .map((i) => PublicacionData.fromJson(i))
           .toList();
     } else {
-      throw Exception('Fail to load movies');
+      throw Exception('Fail to load posts');
     }
   }
 
@@ -30,19 +30,17 @@ class PublicacionRepositoryImpl extends PublicacionRepository {
       PublicacionDto dto, String image) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    Map<String, String> pepe = {
+    Map<String, String> auth = {
       'Authorization': 'Bearer ${prefs.getString('token')}',
     };
-
-    var uri = Uri.parse('http://10.0.2.2:8080/post/');
+    var uri = Uri.parse('${Constant.baseUrl}/post/');
     var request = http.MultipartRequest('POST', uri);
-    request.fields['titulo'] = prefs.getString('titulo').toString();
-    request.fields['texto'] = prefs.getString('texto').toString();
-    request.fields['estadoPublicacion'] = true.toString();
+    request.fields['titulo'] = dto.titulo.toString();
+    request.fields['texto'] = dto.texto.toString();
+    request.fields['estadoPublicacion'] = dto.estadoPublicacion.toString();
     request.files.add(await http.MultipartFile.fromPath(
         'file', prefs.getString('file').toString()));
-    request.headers.addAll(pepe);
-
+    request.headers.addAll(auth);
     var response = await request.send();
     if (response.statusCode == 201) print('Uploaded!');
 
@@ -51,7 +49,7 @@ class PublicacionRepositoryImpl extends PublicacionRepository {
           jsonDecode(await response.stream.bytesToString()));
     } else {
       print(response.statusCode);
-      throw Exception(prefs.getString('titulo'));
+      throw Exception('Ojo cuidao que te has equivocado');
     }
   }
 }

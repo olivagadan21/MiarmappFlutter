@@ -16,6 +16,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -47,6 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String path = "";
   bool _passwordVisible = false;
   bool _password2Visible = false;
+  bool isPublic = true;
 
   @override
   void initState() {
@@ -91,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               return state is RegisterSuccessState || state is LoginErrorState;
             }, listener: (context, state) async {
               if (state is RegisterSuccessState) {
-                _loginSuccess(context, state.loginResponse);
+                _registerSuccess(context, state.loginResponse);
               } else if (state is LoginErrorState) {
                 _showSnackbar(context, state.message);
               }
@@ -110,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Future<void> _loginSuccess(
+  Future<void> _registerSuccess(
       BuildContext context, RegisterResponse late) async {
     _prefs.then((SharedPreferences prefs) {
       prefs.setString('token', late.email);
@@ -143,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Register your account',
+                    'Registrarse',
                     style: heading2.copyWith(color: textBlack),
                   ),
                 ],
@@ -193,57 +195,76 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 24,
                     ),
-                    Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: textWhiteGrey,
-                            borderRadius: BorderRadius.circular(14.0),
-                          ),
-                          child: TextFormField(
-                            controller: nick,
-                            decoration: InputDecoration(
-                              hintText: 'Nick',
-                              hintStyle: heading6.copyWith(color: textGrey),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: textWhiteGrey,
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      child: TextFormField(
+                        controller: nick,
+                        decoration: InputDecoration(
+                          hintText: 'Nick',
+                          hintStyle: heading6.copyWith(color: textGrey),
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide.none,
                           ),
                         ),
-                        const SizedBox(
-                          height: 18,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: textWhiteGrey,
-                            borderRadius: BorderRadius.circular(14.0),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 24,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 20),
+                      child: ToggleSwitch(
+                        cornerRadius: 20.0,
+                        activeBgColors: [
+                          [Colors.green[600]!],
+                          [Colors.red[600]!]
+                        ],
+                        activeFgColor: Colors.white,
+                        inactiveBgColor: Colors.grey,
+                        inactiveFgColor: Colors.white,
+                        initialLabelIndex: 0,
+                        totalSwitches: 2,
+                        labels: const ['Público', 'Privado'],
+                        radiusStyle: true,
+                        onToggle: (index) {
+                          index == 0
+                              ? isPublic = true
+                              : isPublic = false;
+                          print('switched to: $isPublic');
+                        },
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: textWhiteGrey,
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      child: DateTimeFormField(
+                        initialDate: DateTime(2002, 9, 20),
+                        firstDate: DateTime.utc(1900),
+                        lastDate: DateTime.now(),
+                        decoration: const InputDecoration(
+                          hintStyle: TextStyle(color: Colors.black45),
+                          errorStyle: TextStyle(color: Colors.redAccent),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
                           ),
-                          child: DateTimeFormField(
-                            initialDate: DateTime(2001, 9, 7),
-                            firstDate: DateTime.utc(1900),
-                            lastDate: DateTime.now(),
-                            decoration: const InputDecoration(
-                              hintStyle: TextStyle(color: Colors.black45),
-                              errorStyle: TextStyle(color: Colors.redAccent),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                              suffixIcon: Icon(Icons.event_note),
-                              labelText: 'Select Birth Day',
-                            ),
-                            mode: DateTimeFieldPickerMode.date,
-                            autovalidateMode: AutovalidateMode.always,
-                            validator: (e) => (e?.day ?? 0) == 1
-                                ? 'Please not the first day'
-                                : null,
-                            onDateSelected: (DateTime value) {
-                              selectedDate = value;
-                              print(value);
-                            },
-                          ),
+                          suffixIcon: Icon(Icons.event_note),
+                          labelText: 'Fecha de nacimiento',
                         ),
-                      ],
+                        mode: DateTimeFieldPickerMode.date,
+                        autovalidateMode: AutovalidateMode.always,
+                        validator: (e) => (e?.day ?? 0) == 1
+                            ? 'Please not the first day'
+                            : null,
+                        onDateSelected: (DateTime value) {
+                          selectedDate = value;
+                          print(value);
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 24,
@@ -278,7 +299,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             obscureText: !_passwordVisible,
                             controller: passwordController,
                             decoration: InputDecoration(
-                              hintText: 'Password',
+                              hintText: 'Contraseña',
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   _passwordVisible
@@ -311,7 +332,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             obscureText: !_password2Visible,
                             controller: password2,
                             decoration: InputDecoration(
-                                hintText: 'Confirm Password',
+                                hintText: 'Confirmar Contraseña',
                                 hintStyle: heading6.copyWith(color: textGrey),
                                 border: const OutlineInputBorder(
                                   borderSide: BorderSide.none,
@@ -354,16 +375,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 File(state.pickedFile.path),
                                 height: 100,
                               ),
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.red,
-                                  ),
-                                  onPressed: () async {
-                                    SharedPreferences prefs =
-                                        await SharedPreferences.getInstance();
-                                    prefs.setString('file', path);
-                                  },
-                                  child: const Text('Cargar Imagen'))
                             ]);
                           }
                           return Center(
@@ -393,9 +404,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       fixedSize: const Size(240, 50), primary: Colors.blue),
-                  onPressed: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
+                  onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       final loginDto = RegisterDto(
                           nombre: nombre.text,
@@ -403,7 +412,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           nick: nick.text,
                           fechaNacimiento:
                               DateFormat("yyyy-MM-dd").format(selectedDate),
-                          rol: true,
+                          rol: isPublic,
                           email: emailController.text,
                           password2: password2.text,
                           password: passwordController.text);
@@ -411,19 +420,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       BlocProvider.of<RegisterBloc>(context)
                           .add(DoRegisterEvent(loginDto, path));
                     }
-                    prefs.setString('nombre', nombre.text);
-                    prefs.setString('apellidos', apellidos.text);
-                    prefs.setString('nick', nick.text);
-                    prefs.setString('email', emailController.text);
-                    prefs.setString('fechaNacimiento',
-                        DateFormat("yyyy-MM-dd").format(selectedDate));
-                    prefs.setString('rol', nombre.text);
-                    prefs.setString('password', passwordController.text);
-                    prefs.setString('password2', password2.text);
-
-                    Navigator.pushNamed(context, '/login');
                   },
-                  child: const Text('Register'),
+                  child: const Text('Registrarse'),
                 ),
               ),
               const SizedBox(
@@ -433,7 +431,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Already have an account? ",
+                    "¿Ya tienes una cuenta? ",
                     style: regular16pt.copyWith(color: textGrey),
                   ),
                   GestureDetector(
@@ -441,7 +439,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.pushNamed(context, '/login');
                     },
                     child: Text(
-                      'Login',
+                      'Iniciar sesión',
                       style: regular16pt.copyWith(color: primaryBlue),
                     ),
                   ),
