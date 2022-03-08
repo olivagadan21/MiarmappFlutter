@@ -158,8 +158,8 @@ Widget _profile(BuildContext context, UserData user) {
                                               builder: (context) =>
                                                   const FollowPage()));*/
                                     },
-                                    child: const Text("832",
-                                        style: TextStyle(
+                                    child: Text(user.followers.length.toString(),
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black))),
                                 const Text("following"),

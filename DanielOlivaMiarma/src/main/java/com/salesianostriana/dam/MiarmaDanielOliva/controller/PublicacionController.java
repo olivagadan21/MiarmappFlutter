@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/post")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PublicacionController {
 
 

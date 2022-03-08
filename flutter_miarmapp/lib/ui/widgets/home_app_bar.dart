@@ -7,7 +7,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 50),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Expanded(
           flex: 1,
@@ -21,7 +21,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Text('Nueva Publicación'),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(

@@ -49,7 +49,7 @@ public class AuthenticationController {
 
     private JwtUsuarioResponse convertUserToJwtUsuarioResponse(UserEntity user, String jwt) {
         return JwtUsuarioResponse.builder()
-                .id(user.getId())
+                .id(user.getId().toString())
                 .nick(user.getNick())
                 .nombre(user.getNombre())
                 .email(user.getEmail())
